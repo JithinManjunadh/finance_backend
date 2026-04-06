@@ -1,5 +1,7 @@
 ## API Endpoints
 
+---
+
 ### Authentication
 
 #### Register User
@@ -15,6 +17,20 @@ POST /api/auth/register
   "name": "Test1",
   "email": "test1@example.com",
   "password": "123456"
+}
+```
+
+**Response:**
+
+```json
+{
+  "token": "JWT_TOKEN",
+  "user": {
+    "id": "...",
+    "name": "Test1",
+    "email": "test1@example.com",
+    "role": "viewer"
+  }
 }
 ```
 
@@ -74,6 +90,25 @@ GET /api/finance
 ?category=salary
 ```
 
+**Response:**
+
+```json
+{
+  "count": 2,
+  "data": [
+    {
+      "_id": "...",
+      "amount": 5000,
+      "type": "income",
+      "category": "salary",
+      "description": "Monthly salary",
+      "createdAt": "...",
+      "updatedAt": "..."
+    }
+  ]
+}
+```
+
 ---
 
 #### Create Record (Admin Only)
@@ -93,6 +128,20 @@ POST /api/finance
 }
 ```
 
+**Response:**
+
+```json
+{
+  "_id": "...",
+  "amount": 5000,
+  "type": "income",
+  "category": "salary",
+  "description": "Monthly salary",
+  "createdAt": "...",
+  "updatedAt": "..."
+}
+```
+
 ---
 
 #### Update Record (Admin Only)
@@ -109,12 +158,34 @@ PATCH /api/finance/:id
 }
 ```
 
+**Response:**
+
+```json
+{
+  "_id": "...",
+  "amount": 7000,
+  "type": "income",
+  "category": "salary",
+  "description": "Monthly salary",
+  "createdAt": "...",
+  "updatedAt": "..."
+}
+```
+
 ---
 
 #### Delete Record (Admin Only)
 
 ```
 DELETE /api/finance/:id
+```
+
+**Response:**
+
+```json
+{
+  "message": "Deleted successfully"
+}
 ```
 
 ---
@@ -164,6 +235,21 @@ GET /api/dashboard/categories
 GET /api/dashboard/recent
 ```
 
+**Response:**
+
+```json
+[
+  {
+    "_id": "...",
+    "amount": 5000,
+    "type": "income",
+    "category": "salary",
+    "description": "Monthly salary",
+    "createdAt": "..."
+  }
+]
+```
+
 ---
 
 ### User Management (Admin Only)
@@ -176,12 +262,47 @@ GET /api/dashboard/recent
 GET /api/users
 ```
 
+**Response:**
+
+```json
+[
+  {
+    "_id": "...",
+    "name": "John",
+    "email": "john@example.com",
+    "role": "viewer"
+  }
+]
+```
+
 ---
 
 #### Create User
 
 ```
 POST /api/users
+```
+
+**Body:**
+
+```json
+{
+  "name": "New User",
+  "email": "new@example.com",
+  "password": "123456",
+  "role": "analyst"
+}
+```
+
+**Response:**
+
+```json
+{
+  "_id": "...",
+  "name": "New User",
+  "email": "new@example.com",
+  "role": "analyst"
+}
 ```
 
 ---
@@ -192,12 +313,39 @@ POST /api/users
 PATCH /api/users/:id
 ```
 
+**Body:**
+
+```json
+{
+  "role": "admin"
+}
+```
+
+**Response:**
+
+```json
+{
+  "_id": "...",
+  "name": "John",
+  "email": "john@example.com",
+  "role": "admin"
+}
+```
+
 ---
 
 #### Delete User
 
 ```
 DELETE /api/users/:id
+```
+
+**Response:**
+
+```json
+{
+  "message": "User deleted successfully"
+}
 ```
 
 ---
@@ -228,6 +376,7 @@ DELETE /api/users/:id
 }
 ```
 
+---
 
 ## Testing
 
@@ -239,4 +388,5 @@ Includes:
 * Role-based access checks
 * Validation errors
 * Edge cases
+
 
